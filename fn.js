@@ -1,19 +1,19 @@
 define('mu.fn', function () {
   'use strict';
   
-  var apply = function (fn, argv) {
-    return fn.apply(null, argv);
+  var apply = function (func, argv) {
+    return func.apply(null, argv);
   };
   
-  var partialApply = function () {
+  var partial = function () {
     var argv = [].slice.call(arguments),
-        fn = argv.shift();
+        func = argv.shift();
         
-    var partialApplied = function () {
-      return fn.apply(null, [].concat.apply(argv, arguments));
+    var partiallyApplied = function () {
+      return func.apply(null, [].concat.apply(argv, arguments));
     };
     
-    return partialApplied;
+    return partiallyApplied;
   };
   
   var pipe = function () {
@@ -21,17 +21,17 @@ define('mu.fn', function () {
         source = argv.shift();
     
     var piped = function () {
-      return argv.reduce(function (acc, fn) {
-        return fn(acc);
+      return argv.reduce(function (acc, func) {
+        return func(acc);
       }, source.apply(null, arguments));
     };
     
     return piped;
   };
   
-  var reverse = function (fn) {
+  var reverse = function (func) {
     var reversed = function () {
-      return fn.apply(null, [].reverse.call(arguments));
+      return func.apply(null, [].reverse.call(arguments));
     };
     
     return reversed;
@@ -39,7 +39,7 @@ define('mu.fn', function () {
   
   return {
     apply: apply,
-    partial: partialApply,
+    partial: partial,
     pipe: pipe,
     reverse: reverse
   };
