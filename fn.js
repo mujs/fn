@@ -25,7 +25,7 @@ define('mu.fn.partial', function () {
   return partial;
 });
 
-define('mu.fn', function () {
+define('mu.fn.pipe', function () {
   'use strict';
   
   var pipe = function () {
@@ -44,7 +44,7 @@ define('mu.fn', function () {
   return pipe;
 });
 
-define('mu.fn', function () {
+define('mu.fn.reverse', function () {
   'use strict';
   
   var reverse = function (func) {
