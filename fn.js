@@ -16,7 +16,7 @@ define('mu.fn.partial', function () {
         func = argv.shift();
         
     var partiallyApplied = function () {
-      return func.apply(null, [].concat.apply(argv, arguments));
+      return func.apply(null, argv.concat(arguments));
     };
     
     return partiallyApplied;
