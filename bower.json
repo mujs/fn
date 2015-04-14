@@ -1,20 +1,16 @@
 {
   "name": "mu.fn",
   "description": "Collection of basic functional helpers",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "main": "fn.js",
   "dependencies": {
     "define": "*"
   },
   "keywords": [
-    "functional",
     "function",
     "apply",
     "partial",
-    "pipe",
-    "reverse",
-    "compose",
-    "bind"
+    "debounce"
   ],
   "license": "MIT"
 }

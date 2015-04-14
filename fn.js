@@ -26,46 +26,33 @@ define('mu.fn.partial', function () {
   return partial;
 });
 
-define('mu.fn.pipe', function () {
+define('mu.fn.debounce', function () {
   'use strict';
-  
-  var pipe = function () {
-    var argv = [].slice.call(arguments),
-        source = argv.shift();
-    
-    var piped = function () {
-      return argv.reduce(function (acc, func) {
-        return func(acc);
-      }, source.apply(null, arguments));
-    };
-    
-    return piped;
-  };
-  
-  return pipe;
-});
 
-define('mu.fn.reverse', function () {
-  'use strict';
-  
-  var reverse = function (func) {
-    var reversed = function () {
-      return func.apply(null, [].reverse.call(arguments));
+  var debounce = function (fn, delay) {
+    var timer = null;
+
+    var debounced = function () {
+      var args = arguments;
+      clearTimeout(timer);
+
+      timer = setTimeout(function () {
+        fn.apply(null, args);
+      }, delay || 0);
     };
-    
-    return reversed;
+
+    return debounced;
   };
-  
-  return reverse;
+
+  return debounce;
 });
 
 define('mu.fn', function (require) {
   'use strict';
   
   return {
-    apply:   require('mu.fn.apply'),
-    partial: require('mu.fn.partial'),
-    pipe:    require('mu.fn.pipe'),
-    reverse: require('mu.fn.reverse')
+    apply:    require('mu.fn.apply'),
+    partial:  require('mu.fn.partial'),
+    debounce: require('mu.fn.debounce')
   };
 });
