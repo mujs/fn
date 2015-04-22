@@ -1,8 +1,8 @@
 define('mu.fn.apply', function () {
   'use strict';
   
-  var apply = function (func, argv) {
-    return func.apply(null, argv);
+  var apply = function (fn, args) {
+    return fn.apply(null, args);
   };
   
   return apply;
@@ -10,17 +10,15 @@ define('mu.fn.apply', function () {
 
 define('mu.fn.partial', function () {
   'use strict';
-  
-  var partial = function () {
-    var argv = [].slice.call(arguments),
-        func = argv.shift();
+
+  var slice = [].slice;
+
+  var partial = function (fn /* , args... */) {
+    var args = slice.call(arguments, 1);
         
-    var partiallyApplied = function () {
-      var args = [].slice.call(arguments);
-      return func.apply(null, argv.concat(args));
+    return function () {
+      return fn.apply(null, args.concat(slice.call(arguments)));
     };
-    
-    return partiallyApplied;
   };
   
   return partial;
