@@ -24,13 +24,29 @@ define('mu.fn.partial', function () {
   return partial;
 });
 
+define('mu.fn.defer', function () {
+  'use strict';
+
+  var defer = function (fn) {
+    return function (/* args... */) {
+      var args = arguments;
+
+      setTimeout(function () {
+        fn.apply(null, args);
+      }, 0);
+    };
+  };
+
+  return defer;
+});
+
 define('mu.fn.debounce', function () {
   'use strict';
 
   var debounce = function (fn, delay) {
     var timer = null;
 
-    var debounced = function () {
+    return function (/* args... */) {
       var args = arguments;
       clearTimeout(timer);
 
@@ -38,8 +54,6 @@ define('mu.fn.debounce', function () {
         fn.apply(null, args);
       }, delay || 0);
     };
-
-    return debounced;
   };
 
   return debounce;
@@ -49,8 +63,9 @@ define('mu.fn', function (require) {
   'use strict';
   
   return {
-    apply:    require('mu.fn.apply'),
-    partial:  require('mu.fn.partial'),
-    debounce: require('mu.fn.debounce')
+    apply    : require('mu.fn.apply'),
+    partial  : require('mu.fn.partial'),
+    defer    : require('mu.fn.defer')
+    debounce : require('mu.fn.debounce')
   };
 });
