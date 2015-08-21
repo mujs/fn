@@ -58,14 +58,3 @@ define('mu.fn.debounce', function () {
 
   return debounce;
 });
-
-define('mu.fn', function (require) {
-  'use strict';
-  
-  return {
-    apply    : require('mu.fn.apply'),
-    partial  : require('mu.fn.partial'),
-    defer    : require('mu.fn.defer'),
-    debounce : require('mu.fn.debounce')
-  };
-});
